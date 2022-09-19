@@ -1,12 +1,9 @@
-import './App.css';
+import React from "react";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-       <h1>Daruchini</h1>
-      </header>
-    </div>
+    <>
+    </>
   );
 }
 
