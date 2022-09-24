@@ -4,11 +4,6 @@ import CommonStyles from './Common.module.css';
 import NormalMenImage from '../../assets/images/model/men/normal-men.jpg';
 import fakeData from './data.json';
 
-// Normal Pant
-import pant001 from '../../assets/images/men-collection/ts/pant-001-ts.png';
-import pant002 from '../../assets/images/men-collection/ts/pant-002-ts.png';
-// Transparent Pant
-
 const NormalMen = (props) => {
   const [value, setValue] = React.useState(0);
   const [tryTop, setTryTop] = React.useState(null);
@@ -60,7 +55,7 @@ const NormalMen = (props) => {
                 </>
               </Box>
             )}
-            {value === 1 && (
+            {/* {value === 1 && (
               <Box className={CommonStyles['col-box']}>
                 <Box className={CommonStyles['col-cards-pant']}>
                   <img src={pant001} alt="Pant 001" />
@@ -71,7 +66,7 @@ const NormalMen = (props) => {
                   <Button variant="outlined">Try</Button>
                 </Box>
               </Box>
-            )}
+            )} */}
           </Box>
           <Box sx={{ maxWidth: { xs: '100%', md: '50%' }, position: 'relative' }}>
             <img src={NormalMenImage} alt="Model" className={CommonStyles['trial-room-image']} />
