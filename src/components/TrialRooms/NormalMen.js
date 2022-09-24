@@ -1,4 +1,4 @@
-import { Box, Button, FormControlLabel, Switch, Tab, Tabs } from '@mui/material';
+import { Box, Button, FormControlLabel, Paper, Switch, Tab, Tabs } from '@mui/material';
 import React from 'react';
 import CommonStyles from './Common.module.css';
 import NormalMenImage from '../../assets/images/model/men/normal-men.jpg';
@@ -25,6 +25,8 @@ const NormalMen = (props) => {
     width: "104px"
   });
   const [tuckIn, setTuckIn] = React.useState(false);
+  const [topCart, setTopCart] = React.useState(null);
+  const [bottomCart, setBottomCart] = React.useState(null);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -63,13 +65,26 @@ const NormalMen = (props) => {
                 <>
                   {shirts?.map((shirt) => {
                     return (
+                      <Paper sx={{margin: '10px 10px 0 0'}}>
                         <Box className={CommonStyles['col-cards']} key={shirt?.id}>
                           <img src={shirt?.img} alt="Shirt 001" />
-                          <Button variant="outlined" onClick={() => setTryTop(shirt?.setId)}>Try</Button>
+                          <Box
+                            style={{
+                              width: '100%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              margin: '10px 0',
+                              fontSize: '18px',
+                            }}
+                          >
+                            <Box>Price:</Box>
+                            <Box component="b">৳{shirt?.price}</Box>
+                          </Box>
+                          <Button variant="outlined" onClick={() => {setTryTop(shirt?.setId); setTopCart(shirt);}}>Try</Button>
                         </Box>
-                        );
-                      }
-                    )
+                      </Paper>
+                    );})
                   }
                 </>
               </Box>
@@ -79,13 +94,26 @@ const NormalMen = (props) => {
                 <>
                   {pants?.map((pant) => {
                     return (
+                      <Paper sx={{margin: '10px 10px 0 0'}}>
                         <Box className={CommonStyles['col-cards-pant']} key={pant?.id}>
                           <img src={pant?.img} alt="Shirt 001" />
-                          <Button variant="outlined" onClick={() => setTryBottom(pant)}>Try</Button>
+                          <Box
+                            style={{
+                              width: '100%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              margin: '10px 0',
+                              fontSize: '18px',
+                            }}
+                          >
+                            <Box>Price:</Box>
+                            <Box component="b">৳{pant?.price}</Box>
+                          </Box>
+                          <Button variant="outlined" onClick={() => {setTryBottom(pant); setBottomCart(pant);}}>Try</Button>
                         </Box>
-                        );
-                      }
-                    )
+                      </Paper>
+                    );})
                   }
                 </>
               </Box>
@@ -95,13 +123,26 @@ const NormalMen = (props) => {
                 <>
                   {allPanjabi?.map((panjabi) => {
                     return (
+                      <Paper sx={{margin: '10px 10px 0 0'}}>
                         <Box className={CommonStyles['col-cards-pant']} key={panjabi?.id}>
                           <img src={panjabi?.img} alt="Shirt 001" />
-                          <Button variant="outlined" onClick={() => {setTryTop(panjabi?.setId); setTuckIn(false);}}>Try</Button>
+                          <Box
+                            style={{
+                              width: '100%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              margin: '10px 0',
+                              fontSize: '18px',
+                            }}
+                          >
+                            <Box>Price:</Box>
+                            <Box component="b">৳{panjabi?.price}</Box>
+                          </Box>
+                          <Button variant="outlined" onClick={() => {setTryTop(panjabi?.setId); setTuckIn(false); setTopCart(panjabi);}}>Try</Button>
                         </Box>
-                        );
-                      }
-                    )
+                      </Paper>
+                    );})
                   }
                 </>
               </Box>
@@ -111,13 +152,26 @@ const NormalMen = (props) => {
                 <>
                   {allLungi?.map((lungi) => {
                     return (
+                      <Paper sx={{margin: '10px 10px 0 0'}}>
                         <Box className={CommonStyles['col-cards-pant']} key={lungi?.id}>
                           <img src={lungi?.img} alt="Shirt 001" />
-                          <Button variant="outlined" onClick={() => setTryBottom(lungi)}>Try</Button>
+                          <Box
+                            style={{
+                              width: '100%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              margin: '10px 0',
+                              fontSize: '18px',
+                            }}
+                          >
+                            <Box>Price:</Box>
+                            <Box component="b">৳{lungi?.price}</Box>
+                          </Box>
+                          <Button variant="outlined" onClick={() => {setTryBottom(lungi); setBottomCart(lungi);}}>Try</Button>
                         </Box>
-                        );
-                      }
-                    )
+                      </Paper>
+                    );})
                   }
                 </>
               </Box>
@@ -183,6 +237,7 @@ const NormalMen = (props) => {
                 />
               </Box>
             )}
+            <Button variant="outlined" style={{width: '100%', marginTop: '20px'}}>Add to cart</Button>
           </Box>
         </Box>
       </Box>

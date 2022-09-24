@@ -1,20 +1,19 @@
 import { Box, Button, Paper, Tab, Tabs } from '@mui/material';
 import React from 'react';
 import CommonStyles from './Common.module.css';
-import NormalWomenImage from '../../assets/images/model/women/normal-women.jpg';
+import KidBoyImage from '../../assets/images/model/kid/boy-kid.jpg';
 import fakeData from './data.json';
 
-const NormalWomen = (props) => {
+const KidBoy = (props) => {
   const [value, setValue] = React.useState(0);
   const [tryTop, setTryTop] = React.useState(1);
-  const [topCart, setTopCart] = React.useState(null);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const shirts = fakeData?.filter((r) => r.category === 'salwarKameez');
-  const findShirts = fakeData?.find((r) => r.category === 'trialSalwarKameez' && r.id === tryTop);
+  const shirts = fakeData?.filter((r) => r.category === 'boyCol');
+  const findShirts = fakeData?.find((r) => r.category === 'trialBoyCol' && r.id === tryTop);
 
   return (
     <>
@@ -31,7 +30,7 @@ const NormalWomen = (props) => {
 
               }}
             >
-              <Tab label="Salwar kameez" />
+              <Tab label="Boy" />
             </Tabs>
 
             {value === 0 && (
@@ -55,7 +54,7 @@ const NormalWomen = (props) => {
                             <Box>Price:</Box>
                             <Box component="b">৳{shirt?.price}</Box>
                           </Box>
-                          <Button variant="outlined" onClick={() => {setTryTop(shirt?.setId); setTopCart(shirt)}}>Try</Button>
+                          <Button variant="outlined" onClick={() => setTryTop(shirt?.setId)}>Try</Button>
                         </Box>
                       </Paper>
                     );})
@@ -65,7 +64,7 @@ const NormalWomen = (props) => {
             )}
           </Box>
           <Box sx={{ maxWidth: { xs: '100%', md: '50%' }, position: 'relative' }}>
-            <img src={NormalWomenImage} alt="Model" className={CommonStyles['trial-room-image']} />
+            <img src={KidBoyImage} alt="Model" className={CommonStyles['trial-room-image']} />
             {tryTop && findShirts && (
               <img
                 src={findShirts?.img}
@@ -89,4 +88,4 @@ const NormalWomen = (props) => {
   );
 };
 
-export default NormalWomen;
+export default KidBoy;
