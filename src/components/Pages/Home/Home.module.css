@@ -1,0 +1,28 @@
+.main {
+  display: flex;
+  width: 100%;
+  background-color: #fdeced;
+  align-items: center;
+  justify-content: stretch;
+}
+
+.main > div {
+  width: 100%;
+}
+
+.main > .left-col {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.main > .left-col > a:not(:last-child) {
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    flex-direction: column;
+  }
+}

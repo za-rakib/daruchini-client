@@ -1,0 +1,60 @@
+.base {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.base > div {
+  height: calc(100vh - 60px);
+  padding: 20px;
+}
+
+.col-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.col-cards {
+  width: 250px;
+  height: auto;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.col-cards-pant {
+  width: auto;
+  height: 300px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.col-cards-pant > img {
+  width: auto;
+  height: 250px;
+  padding: 10px;
+}
+
+.trial-dress {
+  position: absolute;
+  top: 100px;
+  left: 106px;
+  width: 137px;
+}
+
+.trial-room-image {
+  width: 300px;
+}
+
+@media screen and (max-width: 899px) {
+  .base {
+    flex-direction: column;
+  }
+}

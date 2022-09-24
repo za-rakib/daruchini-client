@@ -1,0 +1,34 @@
+.body-type-main {
+  width: 100%;
+  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.body-type-section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.body-type-cards {
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 150px);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.body-type-cards > a > img {
+  width: auto;
+  height: 350px;
+  text-align: center;
+  margin-bottom: 20px;
+}

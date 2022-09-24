@@ -1,0 +1,11 @@
+export { Home } from "./Home/Home";
+export { AdminDashboard } from "./AdminDashboard/AdminDashboard";
+export { Checkout } from "./Checkout/Checkout";
+export { Kids } from "./Kids/Kids";
+export { Login } from "./Login/Login";
+export { Men } from "./Men/Men";
+export { NotFound } from "./NotFound/NotFound";
+export { Register } from "./Register/Register";
+export { TrialRoom } from "./TrialRoom/TrialRoom";
+export { UserDashboard } from "./UserDashboard/UserDashboard";
+export { Women } from "./Women/Women";
