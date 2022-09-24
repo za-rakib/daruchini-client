@@ -23,13 +23,14 @@ import {
   Face as FaceIcon,
   Face2 as Face2Icon,
   ChildFriendly as ChildFriendlyIcon,
-  MeetingRoom as MeetingRoomIcon,
   Dashboard as DashboardIcon,
   AddShoppingCart as AddShoppingCartIcon,
 } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import { logout } from '../../redux/userRedux';
+import { useDispatch } from 'react-redux';
 
-const Header = () => {
+const Header = ({ user }) => {
   const [drawerState, setDrawerState] = React.useState(false);
 
   const toggleDrawer = (open) => (event) => {
@@ -64,10 +65,10 @@ const Header = () => {
           }}
         >
           <Box>
-            <Box style={{display: 'flex', alignItems: 'center'}}>
+            <Box style={{ display: 'flex', alignItems: 'center' }}>
               <Tooltip title="Menu">
                 <Button onClick={toggleDrawer(true)}>
-                  <IconButton aria-label="delete" style={{color: 'white', margin: '0 10px 0 0'}}>
+                  <IconButton aria-label="delete" style={{ color: 'white', margin: '0 10px 0 0' }}>
                     <MenuIcon />
                   </IconButton>
                 </Button>
@@ -80,12 +81,12 @@ const Header = () => {
                 <DrawerList toggleDrawer={toggleDrawer} />
               </Drawer>
               <Link to="/">
-                <Box style={{fontSize: '27px', fontFamily: 'Noto Sans Bengali, sans-serif'}}>দারুচিনি</Box>
+                <Box style={{ fontSize: '27px', fontFamily: 'Noto Sans Bengali, sans-serif' }}>দারুচিনি</Box>
               </Link>
             </Box>
           </Box>
           <Box>
-            <AccountMenu />
+            <AccountMenu user={user} />
           </Box>
         </Box>
       </Box>
@@ -97,7 +98,7 @@ export default Header;
 
 const DrawerList = ({ toggleDrawer }) => (
   <Box
-    style={{width: '250px'}}
+    style={{ width: '250px' }}
     role="presentation"
     onClick={toggleDrawer(false)}
     onKeyDown={toggleDrawer(false)}
@@ -118,7 +119,7 @@ const DrawerList = ({ toggleDrawer }) => (
         }}
       >
         <Tooltip title="Close">
-          <IconButton aria-label="delete" style={{color: 'inherit'}}>
+          <IconButton aria-label="delete" style={{ color: 'inherit' }}>
             <CloseIcon />
           </IconButton>
         </Tooltip>
@@ -173,7 +174,7 @@ const DrawerList = ({ toggleDrawer }) => (
   </Box>
 );
 
-const AccountMenu = () => {
+const AccountMenu = ({ user }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -182,6 +183,7 @@ const AccountMenu = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const dispatch =  useDispatch()
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -269,14 +271,26 @@ const AccountMenu = () => {
           Settings
         </MenuItem>
         <Divider />
-        <Link to="/login">
-          <MenuItem>
-            <ListItemIcon>
-              <LogoutIcon fontSize="small" />
-            </ListItemIcon>
-            Login
-          </MenuItem>
-        </Link>
+
+        {
+          user ? 
+            <MenuItem onClink ={()=>dispatch(logout)}>
+              <ListItemIcon>
+                <LogoutIcon fontSize="small" />
+              </ListItemIcon>
+              logout
+            </MenuItem>
+         :
+            <Link to="/login">
+              <MenuItem>
+                <ListItemIcon>
+                  <LogoutIcon fontSize="small" />
+                </ListItemIcon>
+                Login
+              </MenuItem>
+            </Link>
+        }
+
       </Menu>
     </React.Fragment>
   );

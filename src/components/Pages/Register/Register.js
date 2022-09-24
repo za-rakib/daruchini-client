@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -14,6 +12,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import registerVideo from '../../../assets/Video/registerVideo.mp4'
 import { publicRequest } from '../../../requestMethod';
 import { useDispatch } from 'react-redux';
+import { register } from '../../../redux/apiCalls';
 
 const theme = createTheme();
 
@@ -32,15 +31,14 @@ export const Register = () => {
   // };
  
 const handleInputData =(e)=>{
-  console.log({e});
+  //console.log({e});
   setRegisterData((prev)=>{
     return {
       ...prev ,[e.target.name]:e.target.value
     }
   })
 }
-
-
+ console.log({registerData});
 useEffect(() => {
   const getUser = async () => {
     try {
@@ -58,7 +56,7 @@ const handleClick = (e) => {
 
   if (registerData.password !== registerData.confirmPassword) {
     alert("Password does not match");
-  } else if (registerData.password.trim().length <= 6) {
+  } else if (registerData.password.trim().length <= 3) {
     alert("Password must have 6 characters");
   } else if (
     userData.find((user) => user.userName === registerData.userName)
@@ -68,12 +66,12 @@ const handleClick = (e) => {
     alert("This Email already exists");
   } else {
     const { confirmPassword, ...rest } = registerData;
-    // register(dispatch, rest);
+     register(dispatch, rest);
      alert("Registration Successful");
   }
 };
 
-console.log({userData});
+//console.log({userData});
 
   return (
     <ThemeProvider theme={theme}>
@@ -84,7 +82,7 @@ console.log({userData});
           xs={false}
           sm={4}
           md={7}
-
+      px={5}
         >
           <video
             loop={true}
@@ -116,7 +114,7 @@ console.log({userData});
               onChange={handleInputData}
                 fullWidth
                 label="Your Name"
-                name="name"
+                name="fullName"
                 margin="normal"
               />
               <TextField
@@ -131,9 +129,8 @@ console.log({userData});
               onChange={handleInputData}
                 margin="normal"
                 fullWidth
-                id="username"
                 label="User Name"
-                name="username"
+                name="userName"
               />
               <TextField
               onChange={handleInputData}
@@ -142,17 +139,22 @@ console.log({userData});
                 name="password"
                 label="Password"
                 type="password"
-
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+              <TextField
+              onChange={handleInputData}
+                margin="normal"
+                fullWidth
+                name="confirmPassword"
+                label="confirmPassword"
+                type="password"
+
               />
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onClick={handleClick}
               >
                 Sign UP
               </Button>
