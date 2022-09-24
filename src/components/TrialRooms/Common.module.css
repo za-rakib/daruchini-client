@@ -7,7 +7,7 @@
 }
 
 .base > div {
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
   padding: 20px;
 }
 
