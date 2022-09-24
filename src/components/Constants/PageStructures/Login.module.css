@@ -1,0 +1,18 @@
+.loginPage{
+ display: flex;
+}
+.loginPageLeft{
+  flex: 6;
+}
+.loginPageRight{
+  flex: 5;
+  background-color: rgb(157, 0, 92);
+}
+.video video {
+  height: 45%;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2%;
+  margin-left: 15%;
+}
