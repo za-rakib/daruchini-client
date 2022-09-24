@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,18 +13,25 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
  import loginVideo from '../../../assets/Video/loginVideo.mp4'
  import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../../redux/apiCalls';
 
 const theme = createTheme();
 
 export const Login=()=> {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
+console.log( isFetching,error);
+  //  data send to redux action
+  const handleClick = (e) => {
+    e.preventDefault();
+    login(dispatch, { userName, password });
+    // console.log(userName, password);
   };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -63,26 +69,22 @@ export const Login=()=> {
             <Typography component="h1" variant="h5">
              Login
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" noValidate  sx={{ mt: 1 }}>
               <TextField
+           
+               onChange={(e) => setUserName(e.target.value)}
                 margin="normal"
-                required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
+                label="User Name"
+                name="userName"
               />
               <TextField
+                  onChange={(e) => setPassword(e.target.value)}
                 margin="normal"
-                required
                 fullWidth
                 name="password"
                 label="Password"
                 type="password"
-                id="password"
-                autoComplete="current-password"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -93,15 +95,17 @@ export const Login=()=> {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onClick={handleClick}
               >
                Login
               </Button>
               <Grid container>
+              {error && 
                 <Grid item xs>
-                  <Link to="/pass">
-                    Forgot password?
-                  </Link>
-                </Grid>
+                 
+                  Something went wrong...
+    
+                </Grid>}
                 <Grid item>
                   <Link to="/register">
                     {"Don't have an account? Sign Up"}

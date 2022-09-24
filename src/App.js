@@ -1,13 +1,16 @@
 import * as React from "react";
-import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { AdminDashboard, Checkout, Home, Kids, Login, Men, NotFound, Register, TrialRoom, UserDashboard, Women } from "./components/Pages";
 import Footer from "./components/Shared/Footer";
 import Header from "./components/Shared/Header";
 
 const App = () => {
+  const user = useSelector((state) => state.user.currentUser);
+ // console.log(user);
   return (
     <>
-      <Header />
+      <Header user={user}/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin/:id" element={<AdminDashboard />} />
@@ -17,8 +20,16 @@ const App = () => {
         <Route path="/women" element={<Women />} />
         <Route path="/trial-room/:personType/:figureType" element={<TrialRoom />} />
         <Route path="/user/:id" element={<UserDashboard />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/" /> : <Login />}
+        ></Route>
+        {/* register */}
+        <Route
+          exact
+          path="/register"
+          element={user ? <Navigate to="/" /> : <Register />}
+        ></Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
