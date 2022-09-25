@@ -24,7 +24,8 @@ const cartSlice = createSlice({
                 tryTop,
               ]
             }
-          } else if (tryBottom) {
+          }
+          if (tryBottom) {
             state.quantity += parseInt(tryBottom.inBag);
             state.total += parseFloat(tryBottom.price) * parseInt(tryBottom.inBag);
             const hasProduct = state.products.findIndex((r) => r.id === tryBottom.id);
