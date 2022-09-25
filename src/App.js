@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { AdminDashboard, Cart, Checkout, Home, Kids, Login, Men, NotFound, Register, TrialRoom, UserDashboard, Women } from "./components/Pages";
+import { AdminDashboard, Cart, Checkout, Home, Kids, Login, Men, NotFound, Register, Success, TrialRoom, UserDashboard, Women } from "./components/Pages";
 import Footer from "./components/Shared/Footer";
 import Header from "./components/Shared/Header";
 
@@ -19,6 +19,7 @@ const App = () => {
         <Route path="/kids" element={<Kids />} />
         <Route path="/men" element={<Men />} />
         <Route path="/women" element={<Women />} />
+        <Route path="/success" element={<Success/>} />
         <Route path="/trial-room/:personType/:figureType" element={<TrialRoom />} />
         <Route path="/user/:id" element={<UserDashboard />} />
         <Route

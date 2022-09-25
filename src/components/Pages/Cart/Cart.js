@@ -1,15 +1,44 @@
-import { IconButton, Paper, TextField, Typography } from '@mui/material';
+import { Button, IconButton, Paper, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   DeleteForever as DeleteForeverIcon,
 } from '@mui/icons-material';
-import { deleteProduct, updateProduct } from '../../../redux/cartRedux';
+import StripeCheckout from "react-stripe-checkout";
+import { deleteAll, deleteProduct, updateProduct } from '../../../redux/cartRedux';
+import { useNavigate } from 'react-router-dom';
+import { publicRequest } from '../../../requestMethod';
+import logo from '../../../assets/images/logo.png'
+const KEY = `pk_test_51IeI82DajAFn8IvdTIwoZrn1AeXHw2WNHkB9MxDrmPpJszevjqo4wdqwRCzdxm8QoAKF86F0zB6epI0D2QKhm5A500ifw7VnS6`
 
 export const Cart = () => {
   const products = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const [stripeToken, setStripeToken] = useState(null);
+  //console.log(cart);
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+  //console.log(stripeToken);
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await publicRequest.post("/checkouts/payment", {
+          tokenId: stripeToken.id,
+          amount:products.total * 100,
+        });
+        dispatch(deleteAll())
+        navigate("/success", { state: res.data });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    stripeToken && products.total >= 1 && makeRequest();
+  }, [stripeToken, products.total, navigate,dispatch]);
   console.log(products);
   return (
     <>
@@ -83,6 +112,23 @@ export const Cart = () => {
             );
           })}
         </Box>
+
+        <StripeCheckout
+              name="Wish Hut"
+              image={logo}
+              shippingAddress
+              billingAddress
+              description={`Your total is ${""} ${products.total}`}
+              amount={products.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+            
+              <Button variant='contained' color="success" sx={
+         { my:5}
+        }>Checkout</Button>
+            </StripeCheckout>
+      
       </Box>
     </>
   );
