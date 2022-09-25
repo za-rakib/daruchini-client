@@ -32,6 +32,7 @@ export const Cart = () => {
                   <Box sx={{maxWidth: '250px', margin: 'auto'}}>
                     <img
                       src={product?.img}
+                      alt='product'
                     />
                   </Box>
                   <Box sx={{
