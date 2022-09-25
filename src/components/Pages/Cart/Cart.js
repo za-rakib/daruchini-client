@@ -29,9 +29,14 @@ export const Cart = () => {
               <Box sx={{ width: {xs: '100%', md: '33.33%'} }}>
                 <Paper sx={{margin: '10px'}}>
                   <Typography variant="h5" component="h5" margin="10px 0">{product.title}</Typography>
-                  <Box sx={{maxWidth: '250px', margin: 'auto'}}>
+                  <Box sx={{maxWidth: '250px', maxHeight: '250px', margin: 'auto'}}>
                     <img
                       src={product?.img}
+                      alt="Product"
+                      style={{
+                        maxHeight: '250px',
+                        width: 'auto',
+                      }}
                     />
                   </Box>
                   <Box sx={{
