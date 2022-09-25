@@ -1,20 +1,26 @@
-import { Box, Button, Paper, Tab, Tabs } from '@mui/material';
+import { Box, Button, List, ListItem, ListItemText, Paper, Tab, Tabs, TextField } from '@mui/material';
 import React from 'react';
 import CommonStyles from './Common.module.css';
 import NormalWomenImage from '../../assets/images/model/women/normal-women.jpg';
 import fakeData from './data.json';
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../../redux/cartRedux';
 
 const NormalWomen = (props) => {
+  const dispatch = useDispatch();
+
   const [value, setValue] = React.useState(0);
-  const [tryTop, setTryTop] = React.useState(1);
-  const [topCart, setTopCart] = React.useState(null);
+  const [tryTop, setTryTop] = React.useState(null);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const shirts = fakeData?.filter((r) => r.category === 'salwarKameez');
-  const findShirts = fakeData?.find((r) => r.category === 'trialSalwarKameez' && r.id === tryTop);
+
+  const handleAddToCart = () => {
+    dispatch(addProduct({tryTop}))
+  }
 
   return (
     <>
@@ -55,7 +61,7 @@ const NormalWomen = (props) => {
                             <Box>Price:</Box>
                             <Box component="b">৳{shirt?.price}</Box>
                           </Box>
-                          <Button variant="outlined" onClick={() => {setTryTop(shirt?.setId); setTopCart(shirt)}}>Try</Button>
+                          <Button variant="outlined" onClick={() => setTryTop(shirt)}>Try</Button>
                         </Box>
                       </Paper>
                     );})
@@ -66,22 +72,63 @@ const NormalWomen = (props) => {
           </Box>
           <Box sx={{ maxWidth: { xs: '100%', md: '50%' }, position: 'relative' }}>
             <img src={NormalWomenImage} alt="Model" className={CommonStyles['trial-room-image']} />
-            {tryTop && findShirts && (
+            {tryTop && (
               <img
-                src={findShirts?.img}
+                src={tryTop?.trialImg}
                 alt="Design"
                 className={CommonStyles['trial-dress']}
                 style={{
-                  width: findShirts.width,
-                  height: findShirts.height,
-                  top: findShirts.top || null,
-                  left: findShirts.left || null,
-                  bottom: findShirts.bottom  || null,
-                  right: findShirts.right || null,
+                  width: tryTop.width,
+                  height: tryTop.height,
+                  top: tryTop.top || null,
+                  left: tryTop.left || null,
+                  bottom: tryTop.bottom  || null,
+                  right: tryTop.right || null,
                 }}
               />
             )}
-            <Button variant="outlined" style={{width: '100%', marginTop: '20px'}}>Add to cart</Button>
+            {/* Top small cart */}
+            {tryTop && (
+              <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                <ListItem
+                  disableGutters
+                  secondaryAction={
+                    <>
+                      <TextField
+                        id="inBag"
+                        label="In Bag"
+                        type="number"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          min: 1,
+                          max: 10,
+                          step: 1,
+                        }}
+                        defaultValue={tryTop.inBag}
+                        variant="standard"
+                        sx={{maxWidth: '70px'}}
+                        onChange={(e) => {
+                          setTryTop((prev) => { return { ...prev, inBag: parseInt(e.target.value) } })
+                        }}
+                      />
+                    </>
+                  }
+                >
+                  <ListItemText primary={tryTop.title} />
+                </ListItem>
+              </List>
+            )}
+            {(tryTop) && (
+              <Button
+                variant="outlined"
+                style={{width: '100%', marginTop: '20px'}}
+                onClick={handleAddToCart}
+              >
+                Add to cart
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>
