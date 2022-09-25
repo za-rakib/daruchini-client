@@ -10,7 +10,7 @@ import { deleteAll, deleteProduct, updateProduct } from '../../../redux/cartRedu
 import { useNavigate } from 'react-router-dom';
 import { publicRequest } from '../../../requestMethod';
 import logo from '../../../assets/images/logo.png'
-const KEY = `pk_test_51IeI82DajAFn8IvdTIwoZrn1AeXHw2WNHkB9MxDrmPpJszevjqo4wdqwRCzdxm8QoAKF86F0zB6epI0D2QKhm5A500ifw7VnS6`
+const KEY = 'pk_test_51IeI82DajAFn8IvdTIwoZrn1AeXHw2WNHkB9MxDrmPpJszevjqo4wdqwRCzdxm8QoAKF86F0zB6epI0D2QKhm5A500ifw7VnS6'
 
 export const Cart = () => {
   const products = useSelector((state) => state.cart);
@@ -38,7 +38,7 @@ export const Cart = () => {
       }
     };
     stripeToken && products.total >= 1 && makeRequest();
-  }, [stripeToken, products.total, navigate,dispatch]);
+  }, [stripeToken, products.total, navigate]);
   console.log(products);
   return (
     <>
