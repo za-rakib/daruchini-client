@@ -9,3 +9,4 @@ export { Register } from "./Register/Register";
 export { TrialRoom } from "./TrialRoom/TrialRoom";
 export { UserDashboard } from "./UserDashboard/UserDashboard";
 export { Women } from "./Women/Women";
+export { Cart } from "./Cart/Cart";

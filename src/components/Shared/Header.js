@@ -28,7 +28,7 @@ import {
 } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { logout } from '../../redux/userRedux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Header = ({ user }) => {
   const [drawerState, setDrawerState] = React.useState(false);
@@ -175,6 +175,8 @@ const DrawerList = ({ toggleDrawer }) => (
 );
 
 const AccountMenu = ({ user }) => {
+  const products = useSelector((state) => state.cart);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -188,19 +190,32 @@ const AccountMenu = ({ user }) => {
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <>
-          <Tooltip title="Account settings">
-            <IconButton
-              // onClick={handleClick}
-              size="small"
-              sx={{ ml: 2, color: 'white' }}
-              aria-controls={open ? 'account-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-            >
-              <AddShoppingCartIcon sx={{ width: 32, height: 32 }} />
-            </IconButton>
-          </Tooltip>
-          <Box component="span" fontSize="20px">12</Box>
+          <Link to="/cart">
+            <Tooltip title="My Cart">
+              <IconButton
+                size="small"
+                aria-controls={open ? 'account-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+              >
+                <Box
+                  sx={{
+                    ml: 2,
+                    color: 'rgb(111, 56, 197)',
+                    backgroundColor: 'white',
+                    padding: '5px 20px',
+                    borderRadius: '50rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <AddShoppingCartIcon sx={{ width: 24, height: 24 }} />
+                  <Box component="span" fontSize="20px">{products.quantity}</Box>
+                </Box>
+              </IconButton>
+            </Tooltip>
+          </Link>
         </>
         <Tooltip title="Account settings">
           <IconButton
