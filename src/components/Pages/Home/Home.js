@@ -18,6 +18,9 @@ export const Home = () => {
           <Link to="/women">
             <Button variant="outlined" color="secondary">Women's Collection</Button>
           </Link>
+          {/* <Link to="/women">
+            <Button variant="outlined" color="secondary">Women's Collection</Button>
+          </Link> */}
           <Link to="/kids">
             <Button variant="outlined" color="secondary">Kids's Collection</Button>
           </Link>
